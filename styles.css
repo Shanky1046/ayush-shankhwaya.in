@@ -6,20 +6,40 @@
 }
 
 :root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary-color: #8b5cf6;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
+    --primary-color: #5a5fcf;
+    --primary-dark: #4a4ab8;
+    --secondary-color: #7a6fc4;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --bg-primary: #fafafa;
+    --bg-secondary: #f0f0f0;
     --bg-dark: #0f172a;
-    --border-color: #e2e8f0;
-    --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --border-color: #d4d4d4;
+    --gradient: linear-gradient(135deg, #5a5fcf 0%, #7a6fc4 100%);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --hero-gradient: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+    --primary-color: #7c82f0;
+    --primary-dark: #6b70d8;
+    --secondary-color: #9a8fd4;
+    --text-primary: #e5e5e5;
+    --text-secondary: #b0b0b0;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
+    --bg-dark: #0f0f0f;
+    --border-color: #3a3a3a;
+    --gradient: linear-gradient(135deg, #7c82f0 0%, #9a8fd4 100%);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+    --hero-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
 body {
@@ -28,6 +48,7 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-primary);
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -42,11 +63,15 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(250, 250, 250, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(26, 26, 26, 0.95);
 }
 
 .navbar .container {
@@ -113,6 +138,47 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+    width: 40px;
+    height: 40px;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-secondary);
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.theme-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-primary);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-icon-dark {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-light {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-dark {
+    display: block;
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
@@ -120,7 +186,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    background: var(--hero-gradient);
     padding-top: 80px;
 }
 
@@ -275,7 +341,7 @@ section {
 }
 
 .skill-category {
-    background: white;
+    background: var(--bg-primary);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
@@ -328,7 +394,7 @@ section {
 }
 
 .achievement-card {
-    background: white;
+    background: var(--bg-primary);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
@@ -383,7 +449,7 @@ section {
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 2rem;
-    background: white;
+    background: var(--bg-primary);
     border-radius: 12px;
     text-decoration: none;
     color: var(--text-primary);
@@ -459,7 +525,7 @@ section {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background: white;
+        background: var(--bg-primary);
         width: 100%;
         text-align: center;
         transition: 0.3s;
@@ -474,6 +540,17 @@ section {
 
     .hamburger {
         display: flex;
+    }
+
+    .theme-toggle {
+        margin-left: 0.5rem;
+        width: 36px;
+        height: 36px;
+    }
+
+    .theme-icon {
+        width: 18px;
+        height: 18px;
     }
 
     .hamburger.active span:nth-child(1) {

@@ -36,9 +36,12 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
+    const isDark = html.getAttribute('data-theme') === 'dark';
     
     if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        navbar.style.boxShadow = isDark 
+            ? '0 4px 6px -1px rgba(0, 0, 0, 0.5)' 
+            : '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
     } else {
         navbar.style.boxShadow = 'none';
     }
@@ -68,4 +71,57 @@ document.querySelectorAll('.achievement-card, .skill-category').forEach(el => {
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
+
+// Theme Toggle Functionality
+const themeToggle = document.querySelector('.theme-toggle');
+const html = document.documentElement;
+
+// Function to get system preference
+function getSystemPreference() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+// Function to set theme
+function setTheme(theme) {
+    if (theme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        html.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Function to toggle theme
+function toggleTheme() {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+}
+
+// Initialize theme on page load
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPreference = getSystemPreference();
+    
+    // Use saved theme if available, otherwise use system preference
+    const theme = savedTheme || systemPreference;
+    setTheme(theme);
+}
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    // Only auto-switch if user hasn't manually set a preference
+    if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+    }
+});
+
+// Add click event to theme toggle
+if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+}
+
+// Initialize theme when page loads
+initTheme();
 
