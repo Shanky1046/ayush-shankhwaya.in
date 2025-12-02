@@ -1,4 +1,4 @@
-# Portfolio Website - Ayush Shankhwaya
+# Ayush Shankhwaya
 
 - 👋 Hi, I'm Ayush Shankhwaya, a Senior QA Engineer and Security Testing Specialist.
 - 🔍 I specialize in automation, functional testing, and vulnerability research.
